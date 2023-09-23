@@ -36,8 +36,8 @@ dependencies:
     specifier: 6.5.3
     version: 6.5.3
   marked:
-    specifier: 0.6.0
-    version: 0.6.0
+    specifier: 4.0.10
+    version: 4.0.10
   modern-screenshot:
     specifier: 4.4.31
     version: 4.4.31
@@ -3429,9 +3429,9 @@ packages:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /marked@0.6.0:
-    resolution: {integrity: sha512-HduzIW2xApSXKXJSpCipSxKyvMbwRRa/TwMbepmlZziKdH8548WSoDP4SxzulEKjlo8BE39l+2fwJZuRKOln6g==}
-    engines: {node: '>=0.10.0'}
+  /marked@4.0.10:
+    resolution: {integrity: sha512-+QvuFj0nGgO970fySghXGmuw+Fd0gD2x3+MqCWLIPf5oxdv1Ka6b2q+z9RP01P/IaKPMEramy+7cNy/Lw8c3hw==}
+    engines: {node: '>= 12'}
     hasBin: true
     dev: false
 
