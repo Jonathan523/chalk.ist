@@ -11,11 +11,13 @@ import {
 } from "radix-vue";
 import {
   shikiThemes,
-  chalkistThemes,
+  chalkistDarkThemes,
   portedThemes,
   allThemes,
   getThemeColors,
   themeLabels,
+  chalkistLightThemes,
+  lightShikiThemes,
 } from "~/lib/themes";
 import { persistentState } from "~/lib/persistent-state";
 import { copyTextToClipboard } from "~/lib/export";
@@ -57,11 +59,29 @@ const themeOptions = computed(() => [
       .sort((a, b) => a.label.localeCompare(b.label)),
   },
   {
-    group: "Other",
+    group: "Light",
+    children: [
+      ...chalkistLightThemes.map((item) => ({
+        value: item.id,
+        label: item.displayName,
+        showEdit: true,
+      })),
+      ...lightShikiThemes.map((item) => ({
+        value: item.id,
+        label: item.displayName,
+      })),
+    ]
+      .filter(
+        (item) => !featuredThemes.find((theme) => theme.id === item.value),
+      )
+      .sort((a, b) => a.label.localeCompare(b.label)),
+  },
+  {
+    group: "Dark",
     children: shikiThemes
       .map((item) => ({ value: item.id, label: item.displayName }))
       .concat(
-        ...chalkistThemes.map((item) => ({
+        ...chalkistDarkThemes.map((item) => ({
           value: item.id,
           label: item.displayName,
           showEdit: true,

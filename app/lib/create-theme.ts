@@ -92,6 +92,7 @@ export function createTheme(name: string, colors: Colors) {
     displayName: name,
     raw,
     colors: {
+      "editor.foreground": colors.foreground,
       "editor.background": "#ff000000",
     },
     settings: [
@@ -109,6 +110,7 @@ export function createTheme(name: string, colors: Colors) {
           "variable.other.member",
           "variable.other.enummember",
           "variable.language",
+          "support.type.object.module",
         ],
         settings: {
           foreground: colors.variable,
