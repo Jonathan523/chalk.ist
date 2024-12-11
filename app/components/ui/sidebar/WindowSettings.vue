@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  LIGHT_WINDOW_STYLES,
   MAX_INNER_PADDING_X,
   MAX_INNER_PADDING_Y,
   MIN_INNER_PADDING_X,
@@ -7,6 +8,7 @@ import {
   WINDOW_STYLES,
 } from "~/lib/constants";
 import { WindowControls } from "~/lib/enums";
+import { state } from "~/lib/state";
 import { store } from "~/lib/store";
 </script>
 
@@ -21,14 +23,40 @@ import { store } from "~/lib/store";
   </div>
 
   <div class="grid grid-flow-col items-center justify-between gap-x-2 gap-y-2">
-    <label for="windowStyle" class="text-xs font-semibold">Window style</label>
-    <Select
-      id="windowStyle"
+    <label for="windowBackgroundOpacity" class="text-xs font-semibold"
+      >Window opacity</label
+    >
+    <SliderAlt
+      id="windowBackgroundOpacity"
       class="-my-1"
       preview-on-focus
-      :model-value="store.windowStyle"
-      @update:model-value="store.windowStyle = $event"
-      :options="WINDOW_STYLES"
+      :disabled="
+        !['variant-1', 'variant-2', 'variant-3'].includes(store.windowStyle)
+      "
+      :model-value="store.windowBackgroundOpacity"
+      @update:model-value="store.windowBackgroundOpacity = $event"
+      :min="80"
+      :max="100"
+      :step="1"
+    />
+  </div>
+
+  <div class="grid grid-flow-col items-center justify-between gap-x-2 gap-y-2">
+    <label for="windowBorderRadius" class="text-xs font-semibold"
+      >Window rounding</label
+    >
+    <SliderAlt
+      id="windowBorderRadius"
+      class="-my-1"
+      preview-on-focus
+      :disabled="
+        !['variant-1', 'variant-2', 'variant-3'].includes(store.windowStyle)
+      "
+      :model-value="store.windowBorderRadius"
+      @update:model-value="store.windowBorderRadius = $event"
+      :min="0"
+      :max="16"
+      :step="1"
     />
   </div>
 
@@ -52,6 +80,64 @@ import { store } from "~/lib/store";
         },
         { label: 'Windows', value: WindowControls.Windows },
       ]"
+    />
+  </div>
+
+  <div class="grid grid-flow-col items-center justify-between gap-x-2 gap-y-2">
+    <label for="windowStyle" class="text-xs font-semibold">Window style</label>
+    <Select
+      id="windowStyle"
+      class="-my-1"
+      preview-on-focus
+      :model-value="
+        state.isLightTheme ? store.lightWindowStyle : store.windowStyle
+      "
+      @update:model-value="
+        state.isLightTheme
+          ? (store.lightWindowStyle = $event)
+          : (store.windowStyle = $event)
+      "
+      :options="state.isLightTheme ? LIGHT_WINDOW_STYLES : WINDOW_STYLES"
+    />
+  </div>
+
+  <div class="grid grid-flow-col items-center justify-between gap-x-2 gap-y-2">
+    <label for="windowShadows" class="text-xs font-semibold"
+      >Window shadows</label
+    >
+    <SliderAlt
+      id="windowShadows"
+      class="-my-1"
+      preview-on-focus
+      :model-value="store.windowShadows"
+      :disabled="
+        !['variant-1', 'variant-2'].includes(store.windowStyle) ||
+        state.isLightTheme
+      "
+      @update:model-value="store.windowShadows = $event"
+      :min="0"
+      :max="100"
+      :step="1"
+    />
+  </div>
+
+  <div class="grid grid-flow-col items-center justify-between gap-x-2 gap-y-2">
+    <label for="windowHighlights" class="text-xs font-semibold"
+      >Window highlights</label
+    >
+    <SliderAlt
+      id="windowHighlights"
+      class="-my-1"
+      preview-on-focus
+      :disabled="
+        !['variant-1', 'variant-2'].includes(store.windowStyle) ||
+        state.isLightTheme
+      "
+      :model-value="store.windowHighlights"
+      @update:model-value="store.windowHighlights = $event"
+      :min="0"
+      :max="50"
+      :step="1"
     />
   </div>
 
